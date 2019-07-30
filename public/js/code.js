@@ -13,7 +13,7 @@ formElement.addEventListener('submit', (e) => {
     if (!address) {
         console.log("Please enter address");
     } else {
-        fetch('http://localhost:3070/weather?address=' + address).then( (response) => {
+        fetch('/weather?address=' + address).then( (response) => {
 
             response.json().then((data) => {
 

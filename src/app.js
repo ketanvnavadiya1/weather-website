@@ -6,6 +6,7 @@ var geocode = require('./utility/geocode');
 var forcast = require('./utility/forcast');
 
 var app = express();
+var port = process.env.PORT || 3000;
 
 var resourcePath = path.join(__dirname, '../public');
 var templatePath = path.join(__dirname, '/templates/views');
@@ -55,19 +56,14 @@ app.get('/weather', (req, res) => {
     } else {
 
         address = req.query.address;
-
-
         geocode.getGeoCOrdinate(address, (error, {lat, long, location} = {}) => {
-
             if(error) {
                 res.send({
                     error: 'Unable to find location, Please tra another string',
                     detail: error
                 });
             } else {
-
                     forcast.getForcastData(lat, long, (error, data) => {
-
                         if(error) {
                             res.send({
                                 error: 'error in forcast',
@@ -85,36 +81,7 @@ app.get('/weather', (req, res) => {
             }
 
         });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // res.send({
-        //     forecast: 'there will be today',
-        //     location: 'Parwala, Gujrat, India',
-        //     address: req.query.address
-        // });
     }
-
-    
 });
 
 
@@ -134,7 +101,7 @@ app.get('*', (req, res) => {
         message: 'Page Not found'
     });
 });
- 
-app.listen(3070, () => {
-    console.log("Webserver is started in port 3000");
+
+app.listen(port, () => {
+    console.log("Webserver is started in port " + port);
 });
